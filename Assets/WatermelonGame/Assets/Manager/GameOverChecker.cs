@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public class GameOverChecker : MonoBehaviour
 {
-    public GameObject manager;
+    public GameManager manager;
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private float gameOverTime = 0;
 
     private float gameOverTemp = 0;
@@ -35,8 +37,9 @@ public class GameOverChecker : MonoBehaviour
     }
     private void GameOver()
     {
-
+        scoreText.text = manager.score.ToString();
         if (gameOverScreen)
             gameOverScreen.SetActive(true);
+        manager.gameOver = true;
     }
 }

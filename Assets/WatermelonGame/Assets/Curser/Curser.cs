@@ -3,26 +3,22 @@ using UnityEngine;
 
 public class Curser : MonoBehaviour
 {
-    [SerializeField] private GameObject[] pathes = new GameObject[2];
+    [SerializeField] private GameManager manager;
+    [SerializeField] private Transform[] pathes = new Transform[2];
     [SerializeField] private float speed = 1.0f;
 
-    private Vector3[] border = new Vector3[2];
-
     Vector3 vec = Vector3.zero;
-    void Start()
-    {
-        border[0] = pathes[0].transform.position;
-        border[1] = pathes[1].transform.position;
-    }
 
     // Update is called once per frame
     void Update()
     {
+        if (manager.gameOver)
+            return;
         vec.x = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
         transform.position += vec;
-        if (transform.position.x < border[0].x)
-            transform.position = border[0];
-        if (transform.position.x > border[1].x)
-            transform.position = border[1];
+        if (transform.position.x < pathes[0].position.x)
+            transform.position = pathes[0].position;
+        if (transform.position.x > pathes[1].position.x)
+            transform.position = pathes[1].position;
     }
 }
